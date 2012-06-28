@@ -52,3 +52,9 @@
 [submodule "bundle/vim-fugitive"]
 	path = bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+[submodule "bundle/obvious-mode"]
+	path = bundle/obvious-mode
+	url = https://github.com/vim-scripts/Obvious-Mode.git
+[submodule "bundle/netrw.vim.git"]
+	path = bundle/netrw.vim.git
+	url = https://github.com/vim-scripts/netrw.vim.git
