@@ -29,6 +29,7 @@ Plugins
 [lodgeit]: https://github.com/vim-scripts/lodgeit.vim
 [lusty]: https://github.com/sjbach/lusty
 [nerdcommenter]: https://github.com/scrooloose/nerdcommenter
+[nerdtree]: https://github.com/scrooloose/nerdtree
 [netrw]: https://github.com/vim-scripts/netrw.vim
 [obvious-mode]: https://github.com/vim-scripts/Obvious-Mode
 [pathogen]: https://github.com/tpope/vim-pathogen
