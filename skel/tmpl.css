@@ -1,0 +1,84 @@
+/********************************************
+ * %NAME%
+ * Copyright %YEAR% LOR Manufacturing Company
+ * Blake M. Sisco
+ *
+ * Swatch Colors
+ * =============
+ * %COLORS%
+ *
+ *
+ * *****************************************/
+
+/*Resets and overrides*/
+/*====================*/
+
+* {
+  margin:0;
+  padding:0;
+}
+
+img {
+  border:none;
+}
+
+/*links and type      */
+/*====================*/
+
+body {
+  font-family:;
+  font-size:;
+}
+
+a:link, a:active, a:visited {
+  text-decoration:none;
+}
+
+a:hover {
+  color:;
+  text-decoration:none;
+}
+
+h1 {
+
+}
+h1 a {
+
+}
+h1 a:hover {
+
+}
+
+h2 {
+
+}
+h2 a {
+
+}
+h2 a:hover {
+
+}
+
+/*layout              */
+/*====================*/
+
+#page { }
+#wrapper { }
+#header { }
+#col-alpha { }
+#col-beta { }
+#footer { }
+
+/*forms               */
+/*====================*/
+
+label { }
+input { }
+input.button { }
+
+/*misc                */
+/*====================*/
+
+.left {float:left;}
+.right {float:right;}
+.clear {clear:both;}
