@@ -18,7 +18,7 @@ set smartcase							" search case sensitive if caps on
 set incsearch							" show best match so far
 
 """"" gundo
-nnoremap <F5> :GundoToggle<CR>
+nnoremap <F5> :GundoToggle<cr>
 let g:gundo_right=1
 let g:gundo_width=60
 let g:gundo_preview_height =40
@@ -31,7 +31,7 @@ set background=dark						" I use dark background
 set lazyredraw							" Don't repaint when scripts are running
 set scrolloff=3							" Keep 3 lines below and above the cursor
 set ruler								" line numbers and column the cursor is on
-set nonumber								    " Don't show line numbering
+set number                              " Set line numbers
 set ttyfast
 set cmdheight=2
 set sidescrolloff=3
@@ -56,6 +56,21 @@ set completeopt=longest,menuone
 set linespace=0
 set guioptions=
 set autoread
+set gdefault
+:highlight PmenuSel ctermfg=black
+
+let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;vendor/**;coverage/**;tmp/**"
+
+set shiftround " When at 3 spaces and I hit >>, go to 4 not 5.
+
+command! Q q
+command! Qall qall
+
+" Disable Ex mode
+map Q <Nop>
+
+" Disable K looking stuff up
+map K <Nop>
 
 " IMPORTANT: grep will sometimes skip displaying the file name if you
 " " search in a singe file. This will confuse Latex-Suite. Set your grep
@@ -111,6 +126,22 @@ set wildmenu							" Autocomplete features in the status bar
 set wildmode=longest:full,list
 set wildignore=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn
 
+let g:commandTMaxHeight=50
+let g:CommandTMatchWindowAtTop=1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RENAME CURRENT FILE (thanks Gary Bernhardt)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>z :call RenameFile()<cr>
 
 "" Set spacing guidelines for file types
 
@@ -121,6 +152,8 @@ au BufRead,BufNewFile *.json set ai sw=4 sts=4 et tw=72 " Doc strs
 au BufRead,BufNewFile *.tex set ai sw=4 sts=4 et tw=80 " Doc strs
 au BufNewFile *.html,*.py,*.pyw,*.c,*.h,*.json set fileformat=unix
 au! BufRead,BufNewFile *.json setfiletype json
+au BufNewFile,BufRead *.txt setlocal wrap
+au BufNewFile,BufRead *.txt setlocal lbr
 
 let python_highlight_all=1
 syntax on
@@ -210,6 +243,21 @@ if has("autocmd")
         autocmd CursorMoved,CursorMovedI * :if &ft == 'python' | :exe 'setlocal textwidth='.GetPythonTextWidth() | :endif
     augroup END
 
+function! MergeTabs()
+    if tabpagenr() == 1
+        return
+    endif
+    let bufferName = bufname("%")
+    if tabpagenr("$") == tabpagenr()
+        close!
+    else
+        close!
+        tabprev
+    endif
+    split
+    execute "buffer " . bufferName
+endfunction
+nmap <C-W>u :call MergeTabs()<cr>
 "" NerdTree Ignores these
 "" filetypes
 let NERDTreeChDirMode=2
@@ -222,19 +270,9 @@ let NERDTreeShowBookmarks=1
 let g:obviousModeInsertHi = 'term=reverse ctermbg=52'
 let g:obviousModeCmdWinHi = 'term=reversse ctermbg=22'
 
-"" TagList Plugin Configuration
-let Tlist_Ctags_Cmd='\ctags57\ctags.exe' " point taglist to ctags
-let Tlist_GainFocus_On_ToggleOpen = 1      " Focus on the taglist when its toggled
-let Tlist_Close_On_Select = 1              " Close when something's selected
-let Tlist_Use_Right_Window = 1             " Project uses the left window
-let Tlist_File_Fold_Auto_Close = 1         " Close folds for inactive files
-let Tlist_Enable_Fold_Column=1
-
-
-""set autowrite       " auto saves changes when quitting and swiching buffer
 set expandtab       " tabs are converted to spaces
 
-let maplocalleader=','
+let mapleader=','
 if version >= 600
     set foldenable
     set foldmethod=indent
@@ -242,8 +280,6 @@ if version >= 600
 endif
 let g:screen_size_restore_pos = 1
 let g:screen_size_by_vim_instance = 1
-
-"inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
 function! s:align()
   let p = '^\s*=\s.*\s=\s*$'
@@ -257,65 +293,81 @@ function! s:align()
 endfunction
 
 inoremap <C-Space> <C-x><C-o>
+inoremap <C-s> <esc>:w<cr>a
+nnoremap <C-s> :w<cr>
 map <silent><C-Left> <C-T>
 map <silent><C-Right> <C-]>
 map <F1> :previous<cr>
 map <F2> :next<cr>
-map <LocalLeader>v :vsp ~/.vimrc<cr>
-map <LocalLeader>e :e ~/.vimrc<cr>
-map <LocalLeader>u :source ~/.vimrc<cr>
-map <LocalLeader>ft :%s/	/    /g<cr>
-map  :Lodgeit<cr>
-map <LocalLeader>ps :ConqueTermSplit Powershell.exe<cr>
-map <LocalLeader>py :ConqueTermSplit ipython<cr>
-map <LocalLeader>pvs :ConqueTermVSplit Powershell.exe<cr>
-map <LocalLeader>pvy :ConqueTermVSplit ipython<cr>
-map <LocalLeader>cp :botright cope<cr>
-map <LocalLeader>n :cn<cr>
-map <LocalLeader>p :cp<cr>
+map <Leader>v :vsp ~/.vimrc<cr>
+map <Leader>e :e ~/.vimrc<cr>
+map <Leader>u :source ~/.vimrc<cr>
+map <Leader>ft :%s/	/    /g<cr>
+"map  :Lodgeit<cr>
+map <Leader>cp :botright cope<cr>
+map <Leader>n :cn<cr>
+map <Leader>p :cp<cr>
 nmap . .`[
-map  <LocalLeader>cc <plug>NERDCommenterComment<cr>
-map  <LocalLeader>c<space> <plug>NERDCommenterToggle<cr>
-map  <LocalLeader>cm <plug>NERDCommenterMinimal<cr>
-map  <LocalLeader>cs <plug>NERDCommenterSexy<cr>
-map  <LocalLeader>ci <plug>NERDCommenterInvert<cr>
-map  <LocalLeader>cy <plug>NERDCommenterYank<cr>
-map  <LocalLeader>cl <plug>NERDCommenterAlignLeft<cr>
-map  <LocalLeader>cb <plug>NERDCommenterAlignBoth<cr>
-map  <LocalLeader>cn <plug>NERDCommenterNest<cr>
-map  <LocalLeader>cu <plug>NERDCommenterUncomment<cr>
-map  <LocalLeader>c$ <plug>NERDCommenterToEOL<cr>
-map  <LocalLeader>cA <plug>NERDCommenterAppend<cr>
-nmap <LocalLeader>nt <Esc>:tabnew<CR>
-nmap <LocalLeader>tn <Esc>:tabn<CR>
-nmap <LocalLeader>tp <Esc>:tabp<CR>
-nmap <LocalLeader>tl :set list!<cr>
-nmap <LocalLeader>cd :cd%:p:h<cr>
-nmap <LocalLeader>lcd :lcd%:p:h<cr>
-nmap <LocalLeader>h <C-W>h<Esc>
-nmap <LocalLeader>w <C-W>w<Esc>
-nmap <LocalLeader>l <C-W>l<Esc>
-nmap <LocalLeader>j <C-W>j<Esc>
-nmap <LocalLeader>k <C-W>k<Esc>
+map <Leader>cu :Tabularize /\|<cr>
+map <Leader>co ggVG"*y
+map <Leader>cc <plug>NERDCommenterComment<cr>
+map <Leader>c<space> <plug>NERDCommenterToggle<cr>
+map <Leader>cm <plug>NERDCommenterMinimal<cr>
+map <Leader>cs <plug>NERDCommenterSexy<cr>
+map <Leader>ci <plug>NERDCommenterInvert<cr>
+map <Leader>cy <plug>NERDCommenterYank<cr>
+map <Leader>cl <plug>NERDCommenterAlignLeft<cr>
+map <Leader>cb <plug>NERDCommenterAlignBoth<cr>
+map <Leader>cn <plug>NERDCommenterNest<cr>
+map <Leader>cun <plug>NERDCommenterUncomment<cr>
+map <Leader>c$ <plug>NERDCommenterToEOL<cr>
+map <Leader>cA <plug>NERDCommenterAppend<cr>
+nmap <Leader>tl :set list!<cr>
+nmap <Leader>cd :cd%:p:h<cr>
+nmap <Leader>lcd :lcd%:p:h<cr>
+nmap <Leader>h <C-W>h<Esc>
+nmap <Leader>w <C-W>w<Esc>
+nmap <Leader>l <C-W>l<Esc>
+nmap <Leader>j <C-W>j<Esc>
+nmap <Leader>k <C-W>k<Esc>
 nmap q: :q
-nmap <LocalLeader>fo :%foldopen!<cr>
-nmap <LocalLeader>fc :%foldclose!<cr>
-nmap <LocalLeader>tt :Tlist<cr>
-nmap <LocalLeader>nn :NERDTreeToggle<cr>
-nmap <LocalLeader>be :MiniBufExplorer<cr>
-nmap <LocalLeader>cb :CMiniBufExplorer<cr>
-nmap <LocalLeader>ub :UMiniBufExplorer<cr>
-nmap <LocalLeader>tb :TMiniBufExplorer<cr>
-nmap <LocalLeader>gs :Gstatus<cr>
-nmap <LocalLeader>gb :Gblame<cr>
-nmap <LocalLeader>gc :Gcommit -a -m<cr>
-nmap <LocalLeader>gm :Gmove<cr>
-nmap <LocalLeader>gg :Ggrep<cr>
-nmap <LocalLeader>gp :Gsplit<cr>
-nmap <LocalLeader>gl :Glog<cr>
-nmap <LocalLeader>grm :Gremove<cr>
-nmap <LocalLeader>ju :JSLintUpdate<cr>
-nmap <LocalLeader>jt :JSLintToggle<cr>
+nmap <Leader>fo :%foldopen!<cr>
+nmap <Leader>fc :%foldclose!<cr>
+nmap <Leader>nn :NERDTreeToggle<cr>
+nmap <Leader>gs :Gstatus<cr>
+nmap <Leader>gb :Gblame<cr>
+vmap <Leader>b :<c-u>!git blame <c-r>=expand("%:p") <cr> \| sed -n <c-r>=line("'<") <cr>,<c-r>=line("'>") <cr>p <cr>
+map <Leader>gc :Gcommit -m ""<LEFT>
+map <Leader>gac :Gcommit -a -m ""<LEFT>
+map <Leader>fix :cnoremap & &<cr>
+map <Leader>gm :Gmove<cr>
+map <Leader>gg :Ggrep<cr>
+map <Leader>gp :Gsplit<cr>
+map <Leader>gl :Glog<cr>
+map <Leader>grm :Gremove<cr>
+map <Leader>h :CommandT<cr>
+map <Leader>i mmgg=G`m<cr>
+"map <Leader>j :CommandT<cr>
+map <Leader>rf :CommandTFlush<cr>
+map <Leader>rw :%s/\s\+$//<cr>:w<cr>
+map <Leader>sc :sp<cr>:grep
+map <Leader>sp yss<p>
+map <Leader>vg :vsp<cr>:grep
+map <Leader>vi :tabe ~/.vimrc<cr>
+map <Leader>w <C-w>w
+
+" Edit another file in the same directory as the current file
+" uses expression to extract path from current file's path
+map <Leader>e :e <C-R>=expand("%:p:h") . '/'<cr>
+map <Leader>s :split <C-R>=expand("%p:h") . '/'<cr>
+map <Leader>v :vnew <C-R>=expand("%:p:h") . '/'<cr>
+
+map <C-h> :nohl<cr>
+imap <C-l> :<Space>
+map <C-t> <esc>:tabnew<cr>
+map <C-x> <C-w>c
+map <C-n> :cn<cr>
+map <C-p> :cp<cr>
 nmap <F11> 1G=G
 imap <F11> <ESC>1G=Ga
 nmap <F11> 1G=G
