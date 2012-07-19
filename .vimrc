@@ -27,7 +27,7 @@ let g:gundo_preview_height =40
 set hidden
 
 """"" Display
-set background=dark						" I use dark background
+"set background=dark						" I use dark background
 set lazyredraw							" Don't repaint when scripts are running
 set scrolloff=3							" Keep 3 lines below and above the cursor
 set ruler								" line numbers and column the cursor is on
@@ -57,7 +57,7 @@ set linespace=0
 set guioptions=
 set autoread
 set gdefault
-:highlight PmenuSel ctermfg=black
+":highlight PmenuSel ctermfg=black
 
 let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;vendor/**;coverage/**;tmp/**"
 
@@ -308,7 +308,7 @@ map <Leader>cp :botright cope<cr>
 map <Leader>n :cn<cr>
 map <Leader>p :cp<cr>
 nmap . .`[
-map <Leader>cu :Tabularize /\|<cr>
+"map <Leader>cu :Tabularize /\|<cr>
 map <Leader>co ggVG"*y
 map <Leader>cc <plug>NERDCommenterComment<cr>
 map <Leader>c<space> <plug>NERDCommenterToggle<cr>
@@ -319,7 +319,7 @@ map <Leader>cy <plug>NERDCommenterYank<cr>
 map <Leader>cl <plug>NERDCommenterAlignLeft<cr>
 map <Leader>cb <plug>NERDCommenterAlignBoth<cr>
 map <Leader>cn <plug>NERDCommenterNest<cr>
-map <Leader>cun <plug>NERDCommenterUncomment<cr>
+map <Leader>cu <plug>NERDCommenterUncomment<cr>
 map <Leader>c$ <plug>NERDCommenterToEOL<cr>
 map <Leader>cA <plug>NERDCommenterAppend<cr>
 nmap <Leader>tl :set list!<cr>
@@ -345,10 +345,7 @@ map <Leader>gg :Ggrep<cr>
 map <Leader>gp :Gsplit<cr>
 map <Leader>gl :Glog<cr>
 map <Leader>grm :Gremove<cr>
-map <Leader>h :CommandT<cr>
 map <Leader>i mmgg=G`m<cr>
-"map <Leader>j :CommandT<cr>
-map <Leader>rf :CommandTFlush<cr>
 map <Leader>rw :%s/\s\+$//<cr>:w<cr>
 map <Leader>sc :sp<cr>:grep
 map <Leader>sp yss<p>
@@ -358,9 +355,9 @@ map <Leader>w <C-w>w
 
 " Edit another file in the same directory as the current file
 " uses expression to extract path from current file's path
-map <Leader>e :e <C-R>=expand("%:p:h") . '/'<cr>
-map <Leader>s :split <C-R>=expand("%p:h") . '/'<cr>
-map <Leader>v :vnew <C-R>=expand("%:p:h") . '/'<cr>
+"map <Leader>e :e <C-R>=expand("%:p:h") . '/'<cr>
+"map <Leader>s :split <C-R>=expand("%p:h") . '/'<cr>
+"map <Leader>v :vnew <C-R>=expand("%:p:h") . '/'<cr>
 
 map <C-h> :nohl<cr>
 imap <C-l> :<Space>
