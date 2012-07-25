@@ -20,6 +20,7 @@ Plugins
 * [tabular][]
 * [taglist][]
 * [vim-autoclose][]
+* [vim-sparkup][]
 * [vim-fugitive][]
 * [vim-surround][]
 * [vim-virtualenv][]
@@ -44,3 +45,4 @@ Plugins
 [vim-fugitive]: https://github.com/tpope/vim-fugitive
 [vim-surround]: https://github.com/tpope/vim-surround
 [vim-virtualenv]: https://github.com/jmcantrell/vim-virtualenv
+[vim-sparkup]: https://github.com/tristen/vim-sparkup
