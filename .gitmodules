@@ -64,3 +64,12 @@
 [submodule "bundle/vim-sparkup"]
 	path = bundle/vim-sparkup
 	url = https://github.com/tristen/vim-sparkup.git
+[submodule "xoria256.vim"]
+	path = xoria256.vim
+	url = https://github.com/vim-scripts/xoria256.vim.git
+[submodule "bundle/xoria-256"]
+	path = bundle/xoria-256
+	url = https://github.com/vim-scripts/xoria256.vim.git
+[submodule "bundle/obviousmode"]
+	path = bundle/obviousmode
+	url = https://github.com/bsl/obviousmode.git

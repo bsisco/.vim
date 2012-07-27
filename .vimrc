@@ -129,6 +129,9 @@ set wildignore=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn
 let g:commandTMaxHeight=50
 let g:CommandTMatchWindowAtTop=1
 
+"""""" Completion Stuff
+let g:SuperTabDefaultCompletionType = "context"
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE (thanks Gary Bernhardt)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -202,10 +205,16 @@ if has("autocmd")
         au FileType tex set textwidth=80
         au FileType py inoremap # X#
         au FileType py set expandtab
+        au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+        au FileType html set omnifunc=htmlcomplete#CompleteTags
+        au FileType css set omnifunc=csscomplete#CompleteCSS
+        au FileType xml set omnifunc=xmlcomplete#CompleteTags
+        au FileType php set omnifunc=phpcomplete#CompletePHP
+        au FileType c set omnifunc=ccomplete#Complete
         au FileType py set omnifunc=pythoncomplete#Complete
-        autocmd BufRead,BufNewFile,FileReadPost *.py source ~/.vim/ftplugin/python.vim
-        autocmd BufRead *.py set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
-        autocmd BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+        au BufRead,BufNewFile,FileReadPost *.py source ~/.vim/ftplugin/python.vim
+        au BufRead *.py set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
+        au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
     endif
 
     function! GetPythonTextWidth()
@@ -292,7 +301,7 @@ function! s:align()
   endif
 endfunction
 
-inoremap <C-Space> <C-x><C-o>
+"inoremap <C-Space> <C-x><C-o>
 inoremap <C-s> <esc>:w<cr>a
 nnoremap <C-s> :w<cr>
 map <silent><C-Left> <C-T>
