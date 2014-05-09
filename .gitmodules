@@ -37,12 +37,6 @@
 [submodule "bundle/nerdtree"]
 	path = bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
-[submodule "bundle/snipmate"]
-	path = bundle/snipmate
-	url = https://github.com/msanders/snipmate.vim.git
-[submodule "bundle/snipmate-snippets"]
-	path = bundle/snipmate-snippets
-	url = https://github.com/scrooloose/snipmate-snippets.git
 [submodule "bundle/vim-surround"]
 	path = bundle/vim-surround
 	url = https://github.com/tpope/vim-surround.git
@@ -64,3 +58,6 @@
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = git://github.com/majutsushi/tagbar
+[submodule "bundle/jedi-vim"]
+	path = bundle/jedi-vim
+	url = http://github.com/davidhalter/jedi-vim
